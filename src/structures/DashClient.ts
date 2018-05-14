@@ -43,9 +43,9 @@ export class DashClient extends Client {
      */
     @on('debug')
     public onDebug(message: string): void {
-        if (message.includes('Authenticated using token') || message.includes('Heartbeat'))
+        if (message.includes('Authenticated using token') || message.includes('heartbeat'))
             return;
-        this.logger.log('discord.js', message);
+        this.logger.log('Dash', message);
     }
 
     /**
@@ -54,7 +54,7 @@ export class DashClient extends Client {
      */
     @on('warn')
     public onWarn(message: string): void {
-        this.logger.warn('discord.js', message);
+        this.logger.warn('Dash', message);
     }
 
     /**
@@ -63,7 +63,7 @@ export class DashClient extends Client {
      */
     @on('error')
     public onError(err: Error): void {
-        this.logger.error('discord.js', err.toString());
+        this.logger.error('Dash', err.toString());
     }
 
 }
