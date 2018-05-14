@@ -36,9 +36,8 @@ class default_1 extends yamdbf_1.Command {
                 .reduce((memA, memB) => memA + memB), true)
                 .addField('Memory Usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}mb`, true)
                 .addField('Uptime', yamdbf_1.Time.difference(this.client.uptime * 2, this.client.uptime).toString(), true)
-                .addField('\u200b', `To see currently avaliable commands, type <@${this.client.user.id}> help`, true)
-                .setFooter(`Dash v${version} by ${author}`);
-            message.channel.send({ embed }).then((m) => m.react('💯'));
+                .addField('\u200b', `To see currently avaliable commands, type <@${this.client.user.id}> help`, true);
+            message.channel.send({ embed });
         });
     }
 }

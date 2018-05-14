@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 export class ImageUtils {
-    public getImageBuffer(url: string): any {
-        axios.get(url, { responseType: 'arrayBuffer '}).then((r: any) => Buffer.from(r.data, 'binary'));
+    public async getImageBuffer(url: string): Promise<String> {
+        const imageBuffer = await axios.get(url, { responseType: 'arrayBuffer' })
+        .then((r: AxiosResponse) => Buffer.from(r.data, 'binary').toString('base64'));
+        return imageBuffer;
     }
 }
