@@ -17,7 +17,7 @@ export class DashClient extends Client {
             pause: true,
             plugins: [],
             provider: Providers.PostgresProvider(process.env.PGSQL),
-            unknownCommandError: false,
+            unknownCommandError: true,
             token: process.env.TOKEN,
             commandsDir: join(__dirname, '..', 'commands')
         },
@@ -33,14 +33,7 @@ export class DashClient extends Client {
      */
     @once('pause')
     public async onPause(): Promise<void> {
-        const guildMemeber: Promise<GuildMember>[] = [];
-        for (let guild of this.guilds.values()) {
-            if (guild.me) continue;
-            guildMemeber.push(guild.fetchMember(this.user));
-        }
-        await this.setDefaultSetting('prefix', 'd!');
-        await Promise.all(guildMemeber);
-
+        await this.setDefaultSetting('prefix', process.env.PREFIX);
         this.emit('continue');
     }
 
@@ -72,4 +65,5 @@ export class DashClient extends Client {
     public onError(err: Error): void {
         this.logger.error('discord.js', err.toString());
     }
+
 }

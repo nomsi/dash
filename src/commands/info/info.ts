@@ -8,7 +8,7 @@ export default class extends Command<Client> {
         super({
             name: 'about',
             aliases: ['info'],
-            desc: 'About Ankh',
+            desc: 'About Dash',
             usage: '[prefix]info',
             group: 'utils',
             guildOnly: true
