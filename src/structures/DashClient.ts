@@ -2,7 +2,6 @@ import { Client as DClient, ListenerUtil, logger, Logger, LogLevel, Providers } 
 import { join } from 'path';
 import { GuildMember, User } from 'discord.js';
 
-const { Client } = require('@spectacles/cache');
 const { on, once } = ListenerUtil;
 
 export class DashClient extends DClient {

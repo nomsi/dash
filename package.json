@@ -17,7 +17,7 @@
     "bot"
   ],
   "dependencies": {
-    "@spectacles/cache": "spec-tacles/cache",
+    "@spectacles/cache": "github:spec-tacles/cache",
     "axios": "^0.18.0",
     "canvas": "^1.6.10",
     "canvas-constructor": "^1.0.1",
