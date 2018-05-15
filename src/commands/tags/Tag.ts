@@ -62,11 +62,15 @@ export class Tag extends Command<Client> {
      * @param {string[]} data argument data
      */
     private async delete(message: Message, _storage: GuildStorage, data: string[]): Promise<void> {
-        if (!(await _storage.exists(`guild_tags.${data[1]}`))) {
-            message.channel.send('Tag doesn\'t exist');
+        if (message.member.hasPermission('MANAGE_MESSAGES')) {
+            if (!(await _storage.exists(`guild_tags.${data[1]}`))) {
+                message.channel.send('Tag doesn\'t exist');
+            } else {
+                await _storage.remove(`guild_tags.${data[1]}`);
+                message.channel.send(`Tag removed.`);
+            }
         } else {
-            await _storage.remove(`guild_tags.${data[1]}`);
-            message.channel.send(`Tag removed.`);
+            message.channel.send('You do not have permission to do that.');
         }
     }
 
