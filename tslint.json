@@ -3,7 +3,7 @@
 		"no-inferrable-types": [false],
 		"no-unused-expression": true,
 		"no-duplicate-variable": true,
-		//"no-unused-variable": [true, {"ignore-pattern": "^_"}],
+		// "no-unused-variable": [true, {"ignore-pattern": "^_"}],
 		// "no-invalid-this": true,
 		"no-shadowed-variable": true,
 		"comment-format": [

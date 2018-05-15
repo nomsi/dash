@@ -1,14 +1,11 @@
-import { Client as DClient, ListenerUtil, logger, Logger, LogLevel, Providers } from 'yamdbf';
+import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from 'yamdbf';
 import { join } from 'path';
 import { GuildMember, User } from 'discord.js';
 
 const { on, once } = ListenerUtil;
 
-export class DashClient extends DClient {
+export class DashClient extends Client {
 
-    /**
-     * @readonly logger singleton
-     */
     @logger public readonly logger: Logger;
 
     public constructor() {
@@ -43,7 +40,7 @@ export class DashClient extends DClient {
      */
     @on('debug')
     public onDebug(message: string): void {
-        if (message.includes('Authenticated using token') || message.includes('heartbeat'))
+        if (message.includes('Authenticated using token') || message.toLocaleLowerCase().includes('heartbeat'))
             return;
         this.logger.log('Dash', message);
     }
@@ -66,4 +63,22 @@ export class DashClient extends DClient {
         this.logger.error('Dash', err.toString());
     }
 
+    /**
+     * Unknown command handler
+     * @param {string} name Command name
+     * @param {any[]} args Arguments
+     * @param {Message} message Message
+     */
+    @on('unknownCommand')
+    public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {
+        const action: string = name;
+        const storage: GuildStorage = <GuildStorage> message.guild.storage;
+
+        if (storage.exists(`guild_tags.${action}`)) {
+            let tag = await storage.get(`guild_tags.${action}`);
+            message.channel.send(tag);
+        } else {
+            await message.react('❌');
+        }
+    }
 }

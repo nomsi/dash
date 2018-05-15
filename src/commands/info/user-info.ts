@@ -40,7 +40,7 @@ export class UserInfo extends Command<Client> {
      * @param {GuildMember} member
      */
     @using(resolve('member: Member'))
-    @using(expect({ '<member>': 'Member' }))
+    @using(expect({ 'member': 'Member' }))
     public async action(message: Message, [member]: [GuildMember]): Promise<void> {
         if (!member)
             message.reply('You must provide a valid member!');
@@ -53,7 +53,7 @@ export class UserInfo extends Command<Client> {
             .addField('Joined', `${moment.utc(member.joinedTimestamp).fromNow()}`, true)
             .addField('Created', `${moment.utc(member.user.createdAt).fromNow()}`, true)
             .addField('Game', `${member.user.presence.game ? member.user.presence.game.name : 'None'}`, true);
-        message.channel.send({embed: embed});
+        await message.channel.send(embed);
     }
 
 }
