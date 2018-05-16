@@ -1,0 +1,27 @@
+version: '1'
+services:
+  bot:
+    build: ./bot
+    depends_on:
+      - postgres
+      - rabbit
+      - redis
+    env_file: .env
+    restart: always
+  core:
+    build: ./core
+    depends_on:
+      - postgres
+      - rabbit
+  redis:
+    image: redis:alpine
+  postgres:
+    image: postgres:9-alpine
+    environment:
+      - POSTGRES_USER=dash
+      - POSTGRES_PASSWORD=ankh
+      - POSTGRES_DB=ankh
+  rabbit:
+    image: rabbitmq:management-alpine
+    ports:
+      - 8080:68774

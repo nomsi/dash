@@ -26,12 +26,14 @@ export class DashClient extends Client {
 
     /**
      * Events to handle before Client is ready
+     * @todo Music - Lavalink
      * @returns {Promise<void>}
      */
     @once('pause')
     public async onPause(): Promise<void> {
         await this.setDefaultSetting('prefix', process.env.PREFIX);
-        this.emit('continue');
+        await this.setDefaultSetting('volume', 1);
+        this.continue();
     }
 
     /**
@@ -78,7 +80,7 @@ export class DashClient extends Client {
             let tag = await storage.get(`guild_tags.${action}`);
             message.channel.send(tag);
         } else {
-            await message.react('❌');
+            message.react('❌');
         }
     }
 }
