@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.1.0",
+    "@types/restify": "^5.0.8",
     "@types/sequelize": "^4.27.18",
     "del": "^3.0.0",
     "gulp": "^3.9.1",

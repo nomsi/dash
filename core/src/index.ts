@@ -1,10 +1,10 @@
-import { pre, createServer, acceptParser, queryParser, bodyParser, sanitizePath, setRoutes, listen } from 'restify';
+import { pre, createServer, Server } from 'restify';
 import * as routes from './routes';
 const { version } = require('../package.json');
 
 class Core {
 
-    private server: createServer;
+    private server: Server;
 
     constructor() {
         this.server = createServer({
@@ -14,9 +14,6 @@ class Core {
     }
 
     private init(): void {
-        this.server.use(acceptParser(this.server.acceptable));
-        this.server.use(queryParser());
-        this.server.use(bodyParser());
         this.server.pre(pre.sanitizePath());
     }
 
