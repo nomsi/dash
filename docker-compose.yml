@@ -13,6 +13,8 @@ services:
     depends_on:
       - postgres
       - rabbit
+  lavalink:
+    build: ./lavalink
   redis:
     image: redis:alpine
   postgres:
