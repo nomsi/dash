@@ -22,9 +22,11 @@
     "canvas": "^1.6.10",
     "canvas-constructor": "^1.0.1",
     "dotenv": "^5.0.1",
+    "ioredis": "^3.2.2",
+    "lavalink": "github:appellation/lavalink.js",
+    "lavaqueue": "github:appellation/lavaqueue",
     "moment": "^2.22.1",
     "pg": "^7.4.3",
-    "redis": "^2.8.0",
     "sequelize": "^4.37.7",
     "yamdbf": "github:zajrik/yamdbf#indev"
   },
