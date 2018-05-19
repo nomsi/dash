@@ -6,7 +6,7 @@ class Core {
 
     private server: Server;
 
-    constructor() {
+    public constructor() {
         this.server = createServer({
             name: 'dash-core',
             version: version

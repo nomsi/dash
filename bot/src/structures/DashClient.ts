@@ -73,14 +73,6 @@ export class DashClient extends Client {
      */
     @on('unknownCommand')
     public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {
-        const action: string = name;
-        const storage: GuildStorage = <GuildStorage> message.guild.storage;
-
-        if (storage.exists(`guild_tags.${action}`)) {
-            let tag = await storage.get(`guild_tags.${action}`);
-            message.channel.send(tag);
-        } else {
-            message.react('❌');
-        }
+        this.commands.resolve('tags').action(message, [name]);
     }
 }
