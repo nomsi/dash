@@ -24,16 +24,16 @@ export class Tag extends Command<Client> {
 
         switch (action) {
             case 'add':
-                this.add(message, this.storage, args);
+                this.add(message, args);
                 break;
             case 'delete':
-                this.delete(message, this.storage, args);
+                this.delete(message, args);
                 break;
             case 'update':
-                this.update(message, this.storage, args);
+                this.update(message, args);
                 break;
             case 'list':
-                this.list(message, this.storage);
+                this.list(message);
                 break;
             default: break;
         }
@@ -43,14 +43,13 @@ export class Tag extends Command<Client> {
     /**
      * Add new tag
      * @param {Message} message message object
-     * @param {GuildStorage} _storage storage constructor
      * @param {string[]} data argument data
      */
-    private async add(message: Message, _storage: GuildStorage, data: string[]): Promise<void> {
-        if (await _storage.exists(`guild_tags.${data[1]}`)) {
+    private async add(message: Message, data: string[]): Promise<void> {
+        if (await this.storage.exists(`guild_tags.${data[1]}`)) {
             message.channel.send(`The tag already exists.`);
         } else {
-            await _storage.set(`guild_tags.${data[1]}`, data.slice(2).join(' '));
+            await this.storage.set(`guild_tags.${data[1]}`, data.slice(2).join(' '));
             message.channel.send(`Tag '${data[1]}' added`);
         }
     }
@@ -58,15 +57,14 @@ export class Tag extends Command<Client> {
     /**
      * Delete existing tag
      * @param {Message} message message object
-     * @param {GuildStorage} _storage storage constructor
      * @param {string[]} data argument data
      */
-    private async delete(message: Message, _storage: GuildStorage, data: string[]): Promise<void> {
+    private async delete(message: Message, data: string[]): Promise<void> {
         if (message.member.hasPermission('MANAGE_MESSAGES')) {
-            if (!(await _storage.exists(`guild_tags.${data[1]}`))) {
+            if (!(await this.storage.exists(`guild_tags.${data[1]}`))) {
                 message.channel.send('Tag doesn\'t exist');
             } else {
-                await _storage.remove(`guild_tags.${data[1]}`);
+                await this.storage.remove(`guild_tags.${data[1]}`);
                 message.channel.send(`Tag removed.`);
             }
         } else {
@@ -77,14 +75,13 @@ export class Tag extends Command<Client> {
     /**
      * Update existing tag
      * @param {Message} message message object
-     * @param {GuildStorage} _storage storage constructor
      * @param {string[]} data argument data
      */
-    private async update(message: Message, _storage: GuildStorage, data: string[]): Promise<void> {
-        if (!(await _storage.exists(`guild_tags.${data[1]}`))) {
+    private async update(message: Message, data: string[]): Promise<void> {
+        if (!(await this.storage.exists(`guild_tags.${data[1]}`))) {
             message.channel.send('Tag doesn\'t exist');
         } else {
-            await _storage.set(`guild_tags.${data[1]}`, data.slice(2).join(' '));
+            await this.storage.set(`guild_tags.${data[1]}`, data.slice(2).join(' '));
             message.channel.send('Tag updated');
         }
     }
@@ -92,11 +89,10 @@ export class Tag extends Command<Client> {
     /**
      * Get tag lists
      * @param {Message} message message object
-     * @param {GuildStorage} _storage storage constructor
      */
-    private async list(message: Message, _storage: GuildStorage): Promise<void> {
+    private async list(message: Message): Promise<void> {
 
-        const tagList: object = await _storage.get(`guild_tags`);
+        const tagList: object = await this.storage.get(`guild_tags`);
         const cb = '```';
 
         if (Object.keys(tagList).length === 0 && !tagList) {
