@@ -19,16 +19,18 @@
   "dependencies": {
     "@spectacles/cache": "^0.3.8",
     "axios": "^0.18.0",
-    "canvas": "^1.6.10",
+    "bufferutil": "^3.0.5",
+    "canvas": "Automattic/node-canvas",
     "canvas-constructor": "^1.0.1",
     "dotenv": "^5.0.1",
+    "erlpack": "discordapp/erlpack",
     "ioredis": "^3.2.2",
     "lavalink": "github:appellation/lavalink.js",
-    "lavaqueue": "github:appellation/lavaqueue",
+    "lavaqueue": "^0.3.2",
     "moment": "^2.22.1",
     "pg": "^7.4.3",
-    "sequelize": "^4.37.7",
-    "yamdbf": "github:zajrik/yamdbf#indev"
+    "sequelize": "4.2.1",
+    "yamdbf": "zajrik/yamdbf"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
