@@ -11,15 +11,15 @@ const { guildOnly, aliases, group, name, desc, usage } = CommandDecorators;
 @usage('<prefix>tags <name>')
 export class Tags extends Command<Client> {
 
-    private storage: GuildStorage;
-
     public async action(message: Message, args: string[]): Promise<void> {
-       if (this.storage.exists(`guild_tags.${args[0]}`)) {
-            let tag = await this.storage.get(`guild_tags.${args[0]}`);
+        const storage: GuildStorage = message.guild.storage;
+
+        if (await storage.exists(`guild_tags.${args[0]}`)) {
+            let tag = await storage.get(`guild_tags.${args[0]}`);
             message.channel.send(tag);
-       } else {
-           await message.react('❌');
-       }
+        } else {
+            message.react('❌');
+        }
     }
 
 }

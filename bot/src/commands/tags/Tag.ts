@@ -61,11 +61,11 @@ export class Tag extends Command<Client> {
      */
     private async delete(message: Message, data: string[]): Promise<void> {
         if (message.member.hasPermission('MANAGE_MESSAGES')) {
-            if (!(await this.storage.exists(`guild_tags.${data[1]}`))) {
-                message.channel.send('Tag doesn\'t exist');
-            } else {
+            if (await this.storage.exists(`guild_tags.${data[1]}`)) {
                 await this.storage.remove(`guild_tags.${data[1]}`);
                 message.channel.send(`Tag removed.`);
+            } else {
+                message.channel.send('Tag doesn\'t exist');
             }
         } else {
             message.channel.send('You do not have permission to do that.');
@@ -78,11 +78,11 @@ export class Tag extends Command<Client> {
      * @param {string[]} data argument data
      */
     private async update(message: Message, data: string[]): Promise<void> {
-        if (!(await this.storage.exists(`guild_tags.${data[1]}`))) {
-            message.channel.send('Tag doesn\'t exist');
-        } else {
+        if (await this.storage.exists(`guild_tags.${data[1]}`)) {
             await this.storage.set(`guild_tags.${data[1]}`, data.slice(2).join(' '));
             message.channel.send('Tag updated');
+        } else {
+            message.channel.send('Tag doesn\'t exist');
         }
     }
 
