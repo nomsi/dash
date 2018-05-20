@@ -15,7 +15,7 @@ export class Tags extends Command<Client> {
         const storage: GuildStorage = message.guild.storage;
 
         if (await storage.exists(`guild_tags.${args[0]}`)) {
-            let tag = await storage.get(`guild_tags.${args[0]}`);
+            const tag = await storage.get(`guild_tags.${args[0]}`);
             message.channel.send(tag);
         } else {
             message.react('❌');
