@@ -1,16 +1,14 @@
 import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from 'yamdbf';
 import { join } from 'path';
 import { Guild, GuildMember, User } from 'discord.js';
-import { Client as Cache } from '@spectacles/cache';
-import * as Redis from 'ioredis';
+import { RedisClient } from './RedisClient';
 
 const { on, once } = ListenerUtil;
 
 export class DashClient extends Client {
 
     @logger public readonly logger: Logger;
-    public redis: Redis.Redis = new Redis(process.env.REDIS);
-    public cache: Cache = new Cache(this.redis);
+    public redis: RedisClient = new RedisClient();
 
     public constructor() {
         super({
@@ -37,6 +35,7 @@ export class DashClient extends Client {
     public async onPause(): Promise<void> {
         await this.setDefaultSetting('prefix', process.env.PREFIX);
         await this.setDefaultSetting('volume', 1);
+        this.redis.publish('bot.event', 'BOT_PAUSED');
         this.continue();
     }
 
@@ -67,6 +66,7 @@ export class DashClient extends Client {
     @on('error')
     public onError(err: Error): void {
         this.logger.error('Dash', err.toString());
+        this.redis.publish('bot.error', err.message);
     }
 
     /**
@@ -77,6 +77,12 @@ export class DashClient extends Client {
      */
     @on('unknownCommand')
     public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {
-        this.commands.resolve('tags').action(message, [name]);
+        await this.commands.resolve('tags').action(message, [name]);
+
+        this.redis.publish('bot.unknownCommand', JSON.stringify({
+            guild: message.guild.id,
+            user: message.member.user.tag,
+            command: name
+        }));
     }
 }

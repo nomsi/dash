@@ -26,11 +26,12 @@
     "erlpack": "discordapp/erlpack",
     "ioredis": "^3.2.2",
     "lavalink": "github:appellation/lavalink.js",
+    "lavalink.js": "^0.1.1",
     "lavaqueue": "^0.3.2",
     "moment": "^2.22.1",
     "pg": "^7.4.3",
-    "sequelize": "4.2.1",
-    "yamdbf": "zajrik/yamdbf"
+    "sequelize": "^4.37.8",
+    "yamdbf": "github:zajrik/yamdbf"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
