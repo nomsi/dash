@@ -3,7 +3,6 @@ import { join } from 'path';
 import { Guild, GuildMember, User } from 'discord.js';
 import { Client as Cache } from '@spectacles/cache';
 import * as Redis from 'ioredis';
-import { UnavailableGuild } from '@spectacles/types';
 
 const { on, once } = ListenerUtil;
 
