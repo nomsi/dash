@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@spectacles/cache@github:spec-tacles/cache":
+"@spectacles/cache@^0.3.8":
   version "0.3.8"
-  resolved "https://codeload.github.com/spec-tacles/cache/tar.gz/964fec004372b37f1884c11ea5bc2a4205255d1e"
+  resolved "https://registry.yarnpkg.com/@spectacles/cache/-/cache-0.3.8.tgz#57b6d979dfdd7793dd70143c5730b8716ad4eabf"
   dependencies:
     "@spectacles/types" "^0.1.1"
     ioredis "^3.2.2"
@@ -41,6 +41,13 @@
 "@types/geojson@^1.0.0":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.6.tgz#3e02972728c69248c2af08d60a48cbb8680fffdf"
+
+"@types/ioredis@^3.2.8":
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-3.2.8.tgz#ea2dda6ee379efa5f8dabd477f04dce4bed91815"
+  dependencies:
+    "@types/bluebird" "*"
+    "@types/node" "*"
 
 "@types/lodash@*":
   version "4.14.108"

@@ -7,7 +7,7 @@ const { guildOnly, aliases, group, name, desc, usage } = CommandDecorators;
 @aliases('run-tag', 'tags')
 @group('tag')
 @name('tags')
-@desc('Run a tag, either by running "<prefix>tagName" or "<prefix>tags tagname')
+@desc('Run a tag, either by running "<prefix>tagName" or "<prefix>tags tagname"')
 @usage('<prefix>tags <name>')
 export class Tags extends Command<Client> {
 

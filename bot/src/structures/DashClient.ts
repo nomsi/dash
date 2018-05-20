@@ -1,12 +1,17 @@
 import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from 'yamdbf';
 import { join } from 'path';
-import { GuildMember, User } from 'discord.js';
+import { Guild, GuildMember, User } from 'discord.js';
+import { Client as Cache } from '@spectacles/cache';
+import * as Redis from 'ioredis';
+import { UnavailableGuild } from '@spectacles/types';
 
 const { on, once } = ListenerUtil;
 
 export class DashClient extends Client {
 
     @logger public readonly logger: Logger;
+    public redis: Redis.Redis = new Redis(process.env.REDIS);
+    public cache: Cache = new Cache(this.redis);
 
     public constructor() {
         super({
