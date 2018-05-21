@@ -2,6 +2,7 @@ import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, Gui
 import { join } from 'path';
 import { Guild, GuildMember, User } from 'discord.js';
 import { RedisClient } from './RedisClient';
+import { Guild as CacheGuild } from '@spectacles/types';
 
 const { on, once } = ListenerUtil;
 
@@ -35,9 +36,27 @@ export class DashClient extends Client {
     public async onPause(): Promise<void> {
         await this.setDefaultSetting('prefix', process.env.PREFIX);
         await this.setDefaultSetting('volume', 1);
+
+        this.user.setActivity(`for d!help in ${this.guilds.size.toString()} guilds.`, {
+            url: `https://dash.nomsy.net/`,
+            type: 'WATCHING'
+        });
+
         this.continue();
     }
 
+    /**
+     * Cache guild and update presence.
+     * @param {CacheGuild} guild Guild object
+     */
+    @on('guildCreate')
+    public async onGuildCreate(guild: CacheGuild): Promise<void> {
+        this.user.setActivity(`for d!help in ${this.guilds.size.toString()} guilds.`, {
+            url: `https://dash.nomsy.net/`,
+            type: 'WATCHING'
+        });
+        await this.redis.saveGuild(guild);
+    }
     /**
      * On bot ready event
      * @returns {void} Publish Event
