@@ -4,7 +4,7 @@ services:
     build: ./bot
     depends_on:
       - postgres
-      - rabbit
+      - lavalink
       - redis
     env_file: .env
     restart: always
@@ -23,7 +23,3 @@ services:
       - POSTGRES_USER=dash
       - POSTGRES_PASSWORD=ankh
       - POSTGRES_DB=ankh
-  rabbit:
-    image: rabbitmq:management-alpine
-    ports:
-      - 8080:68774
