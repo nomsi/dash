@@ -35,8 +35,16 @@ export class DashClient extends Client {
     public async onPause(): Promise<void> {
         await this.setDefaultSetting('prefix', process.env.PREFIX);
         await this.setDefaultSetting('volume', 1);
-        this.redis.publish('bot.event', 'BOT_PAUSED');
         this.continue();
+    }
+
+    /**
+     * On bot ready event
+     * @returns {void} Publish Event
+     */
+    @on('ready')
+    public onReady(): void {
+        this.redis.publish('bot.event', 'Bot ready!');
     }
 
     /**
