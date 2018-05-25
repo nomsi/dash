@@ -1,30 +1,25 @@
-import { logger, Logger } from 'yamdbf';
+import { logger, Logger, ListenerUtil } from 'yamdbf';
 import { Client as Cache } from '@spectacles/cache';
 import { EventEmitter } from 'events';
 import * as Redis from 'ioredis';
 import { Guild, UnavailableGuild } from '@spectacles/types';
+
+const { on, once } = ListenerUtil;
 
 export class RedisClient extends EventEmitter {
 
     private redis: Redis.Redis = new Redis(process.env.REDIS);
     private redisSender: Redis.Redis = new Redis(process.env.REDIS);
     public cache: Cache;
-
     @logger public readonly logger: Logger;
 
     public constructor() {
         super();
 
+        ListenerUtil.registerListeners(this.redis);
         this.cache = new Cache(this.redis);
-
         this.redis.psubscribe('web.*', 'bot.*');
-
-        this.redis.on('pmessage', (p: string, c: string, _p: any[]): void => this.onMessage(p, c, _p));
-        this.redis.on('ready', (): Promise<void> => this.logger.log('redis', 'Redis reciever ready!'));
-
         this.redisSender.on('ready', (): Promise<void> => this.logger.log('redis', 'Redis sender ready!'));
-
-        this.redis.on('error', this.onError);
     }
 
     /**
@@ -36,12 +31,21 @@ export class RedisClient extends EventEmitter {
     }
 
     /**
-     * On redis client message
-     * @param pattern Pattern
-     * @param channel Channel
-     * @param payload Payload
+     * OnReady event for Redis Reciever Client
      */
-    private onMessage(pattern: string, channel: string, payload: any[]): void {
+    @on('ready')
+    private onReady(): void {
+        this.logger.log('redis', 'Redis reciever ready!');
+    }
+
+    /**
+     * Message handler for Redis reciever client.
+     * @param {string} pattern Pattern
+     * @param {string} channel Channel
+     * @param {any} payload Payload
+     */
+    @on('pmessage')
+    private onMessage(pattern: string, channel: string, payload: any): void {
         try {
             this.emit(pattern, payload, channel);
         } catch (e) {
@@ -76,6 +80,7 @@ export class RedisClient extends EventEmitter {
      * Error handler for redis
      * @param {Error} e Error
      */
+    @on('error')
     private onError(e: Error): void {
         this.logger.log('redis', e.toString());
     }
