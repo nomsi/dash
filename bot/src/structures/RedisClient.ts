@@ -47,7 +47,7 @@ export class RedisClient extends EventEmitter {
     @on('pmessage')
     private onMessage(pattern: string, channel: string, payload: any): void {
         try {
-            this.emit(pattern, payload, channel);
+            this.emit(pattern, channel, payload);
         } catch (e) {
             this.onError(e);
         }
