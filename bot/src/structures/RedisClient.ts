@@ -16,7 +16,7 @@ export class RedisClient extends EventEmitter {
     public constructor() {
         super();
 
-        ListenerUtil.registerListeners(this.redis);
+        ListenerUtil.registerListeners(this.redis, this);
         this.cache = new Cache(this.redis);
         this.redis.psubscribe('web.*', 'bot.*');
         this.redisSender.on('ready', (): Promise<void> => this.logger.log('redis', 'Redis sender ready!'));
