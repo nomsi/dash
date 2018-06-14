@@ -23,4 +23,4 @@ COPY . .
 RUN gulp build
 
 # Run
-CMD ["npm", "run", "start"]
+CMD npm run start
