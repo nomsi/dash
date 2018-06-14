@@ -10,6 +10,7 @@ export class DashClient extends Client {
 
     @logger public readonly logger: Logger;
     public redis: RedisClient = new RedisClient();
+    public test: string;
 
     public constructor() {
         super({

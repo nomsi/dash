@@ -1,4 +1,7 @@
 import axios from 'axios';
+import * as moment from 'moment';
+
+const { DARKSKY_API } = process.env;
 
 enum WeatherCodes {
     CLOUD = '☁️',
@@ -13,5 +16,5 @@ enum WeatherCodes {
 }
 
 export class Weather {
-
+    private apiKey: string = DARKSKY_API;
 }
