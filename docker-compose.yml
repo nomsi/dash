@@ -8,11 +8,13 @@ services:
       - redis
     env_file: .env
     restart: always
-  core:
-    build: ./core
+  web:
+    build: ./web
+    env_file: .env
+    restart: always
     depends_on:
       - postgres
-      - rabbit
+      - redis
   lavalink:
     build: ./lavalink
   redis:
