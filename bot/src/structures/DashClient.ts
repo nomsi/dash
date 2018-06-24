@@ -47,20 +47,20 @@ export class DashClient extends Client {
     }
 
     /**
-     * Cache guild and update presence.
-     * @param {CacheGuild} guild Guild object
+     * Triggers when GuildEvent is emitted
+     * @returns {Promise<void>}
      */
     @on('guildCreate')
-    public async onGuildCreate(guild: CacheGuild): Promise<void> {
+    public async onGuildCreate(): Promise<void> {
         this.user.setActivity(`for d!help in ${this.guilds.size.toString()} guilds.`, {
             url: `https://dash.nomsy.net/`,
             type: 'WATCHING'
         });
-        await this.redis.saveGuild(guild);
     }
+
     /**
-     * On bot ready event
-     * @returns {void} Publish Event
+     * Emitted when the bot enters a ready state
+     * @returns {void}
      */
     @on('ready')
     public onReady(): void {
@@ -70,6 +70,7 @@ export class DashClient extends Client {
     /**
      * Discord.js Debug Event
      * @param {string} message Debug message
+     * @returns {void}
      */
     @on('debug')
     public onDebug(message: string): void {
@@ -79,8 +80,9 @@ export class DashClient extends Client {
     }
 
     /**
-     * Discord.js Warn Event
+     * Discord.js warn event
      * @param {string} message Warn message
+     * @returns {void}
      */
     @on('warn')
     public onWarn(message: string): void {
@@ -88,8 +90,9 @@ export class DashClient extends Client {
     }
 
     /**
-     * Discord.js Error Event
+     * Discord.js error event handler
      * @param {Error} err Error message
+     * @returns {void}
      */
     @on('error')
     public onError(err: Error): void {
@@ -98,10 +101,11 @@ export class DashClient extends Client {
     }
 
     /**
-     * Unknown command handler
+     * Event handler for when an ``unknownCommand`` event is emitted.
      * @param {string} name Command name
      * @param {any[]} args Arguments
      * @param {Message} message Message
+     * @returns {Promise<void>}
      */
     @on('unknownCommand')
     public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {

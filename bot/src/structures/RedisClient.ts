@@ -32,6 +32,8 @@ export class RedisClient extends EventEmitter {
 
     /**
      * OnReady event for Redis Reciever Client
+     * @returns {void}
+     * @private
      */
     @on('ready')
     private onReady(): void {
@@ -43,6 +45,7 @@ export class RedisClient extends EventEmitter {
      * @param {string} pattern Pattern
      * @param {string} channel Channel
      * @param {any} payload Payload
+     * @returns {void}
      */
     @on('pmessage')
     private onMessage(pattern: string, channel: string, payload: any): void {
@@ -54,18 +57,23 @@ export class RedisClient extends EventEmitter {
     }
 
     /**
-     * Publish to redis channel
+     * Publish to redis channel the bot is registed to.
+     * Example usage:
+     * ``<RedisClient>.publish('channel.name', 'message');``
      * @param {string} channel Channel name
      * @param {string} message Message
+     * @returns {Promise<void>}
      */
-    public publish(channel: string, message: string): void {
-        this.redisSender.publish(channel, message);
+    public async publish(channel: string, message: string): Promise<void> {
+        await this.redisSender.publish(channel, message);
         this.logger.log('Redis', `Published ${message} to ${channel}.`);
     }
 
     /**
+     * @deprecated This method is deprecated due to an old version of ``spec-tacles/cache``.
      * Save guild to cache
      * @param {Guild} guild Guild object
+     * @returns {void}
      */
     public async saveGuild(guild: Guild): Promise<void> {
         try {
@@ -79,6 +87,7 @@ export class RedisClient extends EventEmitter {
     /**
      * Error handler for redis
      * @param {Error} e Error
+     * @returns {void}
      */
     @on('error')
     private onError(e: Error): void {
