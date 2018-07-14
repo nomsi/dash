@@ -54,8 +54,6 @@ export class UserInfo extends Command<Client> {
             .addField('Created', `${moment.utc(member.user.createdAt).fromNow()}`, true)
             .addField('Game', `${member.user.presence.game ? member.user.presence.game.name : 'None'}`, true);
         await message.channel.send(embed);
-
-        this.client.guilds.get('').channels.get('').send()
     }
 
 }

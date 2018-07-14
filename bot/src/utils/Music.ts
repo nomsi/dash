@@ -1,4 +1,16 @@
+import { Client as Lavalink } from 'lavaqueue';
+import { Client } from 'discord.js';
 
-export interface IQueue<T> {
-    [key: string]: T;
+export class LavalinkClient extends Lavalink {
+    public constructor(client: Client) {
+        super({
+            password: '',
+            userID: '',
+            hosts: {
+
+            }
+        });
+    }
+    public async send(): Promise<void> {
+    }
 }

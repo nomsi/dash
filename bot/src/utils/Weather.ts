@@ -15,6 +15,9 @@ enum WeatherCodes {
     FOG = '🌫️'
 }
 
+/**
+ * @todo actually finish {DashClient|Weather} utility
+ */
 export class Weather {
     private apiKey: string = DARKSKY_API;
 }

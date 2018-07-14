@@ -26,6 +26,7 @@ export class DashClient extends Client {
             disableEveryone: true,
             messageCacheMaxSize: 10
         });
+        this.test = this.test;
     }
 
     /**
