@@ -8,7 +8,7 @@ export class MusicClient extends Lavalink {
     /**
      * MusicClient is the handler between {DashClient}|{}
      * that handles the packets between guilds, redis, and
-     * Lavalink.js
+     * Lavalink.js/Lavaqueue by [https://github.com/appellation](appellation)
      * @param {Client} client discord.js client
      */
     public constructor(client: Client) {

@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y curl
 RUN curl -o Lavalink.jar https://ci.fredboat.com/repository/download/Lavalink_Build/3697:id/Lavalink.jar?guest=1
 ENV SERVER_PORT=8086 \
     SERVER_ADDRESS=0.0.0.0 \
-    LAVALINK_SERVER_PASSWORD=changemepls \
+    LAVALINK_SERVER_PASSWORD=thisistheendtimes \
     LAVALINK_SERVER_WS_PORT=8087 \
     LAVALINK_SERVER_WS_HOST=0.0.0.0 \
     LAVALINK_SERVER_SOURCES_HTTP=false \
