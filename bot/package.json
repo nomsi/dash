@@ -24,7 +24,7 @@
     "erlpack": "discordapp/erlpack",
     "ioredis": "^3.2.2",
     "lavalink": "github:appellation/lavalink.js",
-    "lavaqueue": "^0.3.2",
+    "lavaqueue": "github:appellation/lavaqueue",
     "moment": "^2.22.1",
     "pg": "^7.4.3",
     "sequelize": "^4.37.8",

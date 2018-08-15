@@ -12,4 +12,7 @@ const { guildOnly, aliases, group, name, desc, usage } = CommandDecorators;
 @desc('Join voice channel for music!')
 @usage('<prefix>join')
 export class Join extends Command<Client> {
+    public async action(message: Message, args: string[]): Promise<void> {
+
+    }
 }
