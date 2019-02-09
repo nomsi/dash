@@ -1,4 +1,4 @@
-import { Logger, LogLevel } from 'yamdbf';
+import { Logger, LogLevel } from '@yamdbf/core';
 import { DashClient as Client } from './structures/DashClient';
 
 require('dotenv').config();

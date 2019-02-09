@@ -1,5 +1,5 @@
-import { Client, Command, Message, Time } from 'yamdbf';
-import { RichEmbed, Guild } from 'discord.js';
+import { Client, Command, Message, Time } from '@yamdbf/core';
+import { MessageEmbed, Guild } from 'discord.js';
 
 const { version, author } = require('../../../package');
 
@@ -16,9 +16,9 @@ export default class extends Command<Client> {
     }
 
     public async action(message: Message): Promise<void> {
-        const embed: RichEmbed = new RichEmbed()
+        const embed: MessageEmbed = new MessageEmbed()
             .setTitle('Dash')
-            .setThumbnail(this.client.user.displayAvatarURL)
+            .setThumbnail(this.client.user.defaultAvatarURL)
             .setURL('https://dash.nomsy.net/')
             .setColor('007eff')
             .setDescription(`Yet another Discord bot.`)

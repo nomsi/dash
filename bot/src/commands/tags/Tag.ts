@@ -1,5 +1,5 @@
-import { RichEmbed } from 'discord.js';
-import { CommandDecorators, Client, Command, Message, GuildStorage } from 'yamdbf';
+import { MessageEmbed } from 'discord.js';
+import { CommandDecorators, Client, Command, Message, GuildStorage } from '@yamdbf/core';
 
 const { guildOnly, aliases, group, name, desc, usage } = CommandDecorators;
 
@@ -98,7 +98,7 @@ export class Tag extends Command<Client> {
         if (Object.keys(tagList).length === 0 && !tagList) {
             message.channel.send('This guild has no tags.');
         } else {
-            let embed: RichEmbed = new RichEmbed()
+            let embed: MessageEmbed = new MessageEmbed()
                 .setTitle(`Tags for ${message.guild.name}`)
                 .setDescription(`${cb}\n${Object.keys(tagList).sort().join(', ')}\n${cb}`);
             message.channel.send({ embed: embed, disableEveryone: true });

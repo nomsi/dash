@@ -1,5 +1,5 @@
-import { CommandDecorators as c, Client, Command, Message, Guild, Middleware, CommandDecorators } from 'yamdbf';
-import { GuildMember, RichEmbed, User } from 'discord.js';
+import { Client, Command, Message, Middleware, CommandDecorators } from '@yamdbf/core';
+import { GuildMember, MessageEmbed } from 'discord.js';
 import * as moment from 'moment';
 
 const { aliases, info, group, using, guildOnly, usage, name, desc } = CommandDecorators;
@@ -42,17 +42,15 @@ export class UserInfo extends Command<Client> {
     @using(resolve('member: Member'))
     @using(expect({ 'member': 'Member' }))
     public async action(message: Message, [member]: [GuildMember]): Promise<void> {
-        if (!member)
-            message.reply('You must provide a valid member!');
+        if (!member) message.reply('You must provide a valid member!');
 
-        const embed: RichEmbed = new RichEmbed()
+        const embed: MessageEmbed = new MessageEmbed()
             .setColor(this.presenceType(member.user.presence.status))
-            .setThumbnail(member.user.displayAvatarURL)
+            .setThumbnail(member.user.defaultAvatarURL)
             .addField('Nickname', `${member.nickname !== null ? `Nick: ${member.nickname}` : 'No nick'}`, true)
             .addField('Roles', `${member.roles.map((r) => '``' + r.name + '``').join(' ')}`, true)
             .addField('Joined', `${moment.utc(member.joinedTimestamp).fromNow()}`, true)
-            .addField('Created', `${moment.utc(member.user.createdAt).fromNow()}`, true)
-            .addField('Game', `${member.user.presence.game ? member.user.presence.game.name : 'None'}`, true);
+            .addField('Created', `${moment.utc(member.user.createdAt).fromNow()}`, true);
         await message.channel.send(embed);
     }
 

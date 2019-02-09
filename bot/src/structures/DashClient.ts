@@ -1,9 +1,7 @@
-import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from 'yamdbf';
+import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from '@yamdbf/core';
 import { join } from 'path';
 import { Guild, GuildMember, User } from 'discord.js';
 import { RedisClient } from './RedisClient';
-import { Guild as CacheGuild } from '@spectacles/types';
-
 const { on, once } = ListenerUtil;
 
 export class DashClient extends Client {
@@ -111,11 +109,5 @@ export class DashClient extends Client {
     @on('unknownCommand')
     public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {
         await this.commands.resolve('tags').action(message, [name]);
-
-        this.redis.publish('bot.unknownCommand', JSON.stringify({
-            guild: message.guild.id,
-            user: message.member.user.tag,
-            command: name
-        }));
     }
 }

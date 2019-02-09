@@ -1,8 +1,7 @@
 /**
  * @todo Join voice channel command
  */
-import { RichEmbed } from 'discord.js';
-import { CommandDecorators, Client, Command, Message, GuildStorage } from 'yamdbf';
+import { CommandDecorators, Client, Command, Message, GuildStorage } from '@yamdbf/core';
 const { guildOnly, aliases, group, name, desc, usage } = CommandDecorators;
 
 @guildOnly
