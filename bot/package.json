@@ -17,18 +17,15 @@
     "bot"
   ],
   "dependencies": {
-    "@spectacles/cache": "^0.3.8",
+    "@yamdbf/core": "git+https://github.com/yamdbf/core.git#indev",
     "axios": "^0.18.0",
     "bufferutil": "^3.0.5",
     "dotenv": "^5.0.1",
     "erlpack": "discordapp/erlpack",
     "ioredis": "^3.2.2",
-    "lavalink": "github:appellation/lavalink.js",
-    "lavaqueue": "github:appellation/lavaqueue",
     "moment": "^2.22.1",
     "pg": "^7.4.3",
-    "sequelize": "^4.37.8",
-    "yamdbf": "github:zajrik/yamdbf#indev"
+    "sequelize": "^4.37.8"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
