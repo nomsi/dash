@@ -18,7 +18,7 @@ export default class extends Command<Client> {
     public async action(message: Message): Promise<void> {
         const embed: MessageEmbed = new MessageEmbed()
             .setTitle('Dash')
-            .setThumbnail(this.client.user.defaultAvatarURL)
+            .setThumbnail(this.client.user.displayAvatarURL())
             .setURL('https://dash.nomsy.net/')
             .setColor('007eff')
             .setDescription(`Yet another Discord bot.`)

@@ -46,7 +46,7 @@ export class UserInfo extends Command<Client> {
 
         const embed: MessageEmbed = new MessageEmbed()
             .setColor(this.presenceType(member.user.presence.status))
-            .setThumbnail(member.user.defaultAvatarURL)
+            .setThumbnail(member.user.displayAvatarURL())
             .addField('Nickname', `${member.nickname !== null ? `Nick: ${member.nickname}` : 'No nick'}`, true)
             .addField('Roles', `${member.roles.map((r) => '``' + r.name + '``').join(' ')}`, true)
             .addField('Joined', `${moment.utc(member.joinedTimestamp).fromNow()}`, true)
