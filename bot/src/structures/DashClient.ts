@@ -1,6 +1,6 @@
 import { Client, ListenerUtil, logger, Logger, LogLevel, Providers, Message, GuildStorage } from '@yamdbf/core';
 import { join } from 'path';
-import { Guild, GuildMember, User } from 'discord.js';
+import { Lavalink as MusicClient } from 'lavaqueue';
 import { RedisClient } from './RedisClient';
 const { on, once } = ListenerUtil;
 
@@ -8,7 +8,6 @@ export class DashClient extends Client {
 
     @logger public readonly logger: Logger;
     public redis: RedisClient = new RedisClient();
-    public test: string;
 
     public constructor() {
         super({
@@ -24,9 +23,8 @@ export class DashClient extends Client {
             disableEveryone: true,
             messageCacheMaxSize: 10
         });
-        this.test = this.test;
-    }
 
+    }
     /**
      * Events to handle before Client is ready
      * @todo Music - Lavalink
@@ -65,6 +63,28 @@ export class DashClient extends Client {
     public onReady(): void {
         this.redis.publish('bot.event', 'Bot ready!');
     }
+
+    /**
+     * MusicClient is the handler between {DashClient}|{}
+     * that handles the packets between guilds, redis, and
+     * Lavaqueue by [https://github.com/appellation](appellation)
+     * @class {MusicClient} Lavaqueue alias
+     * @description Initialize MusicClient using Lavaqueue
+     */
+    public music: MusicClient = new MusicClient({
+        password: process.env.LAVALINK_PASS || 'thisistheendtimes'!,
+        userID: this.user.id,
+        hosts: {
+            rest: `http://${process.env.LAVALINK_HOST || 'lavalink'}:8081`,
+            ws: `ws://${process.env.LAVALINK_HOST || 'lavalink'}:8080`,
+            redis: process.env.REDIS
+        },
+        send: async (guild: string, packet: any): Promise<void> => {
+            if (this.guilds.has(guild)) {
+                await (this as any).ws.send(packet);
+            }
+        }
+    });
 
     /**
      * Discord.js Debug Event
@@ -110,4 +130,5 @@ export class DashClient extends Client {
     public async onUnknownCommand(name: string, args: any[], message: Message): Promise<void> {
         await this.commands.resolve('tags').action(message, [name]);
     }
+
 }
