@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@yamdbf/core": "git+https://github.com/yamdbf/core.git#indev",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bufferutil": "^3.0.5",
     "dotenv": "^5.0.1",
     "erlpack": "discordapp/erlpack",
