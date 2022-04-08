@@ -23,7 +23,7 @@
     "dotenv": "^5.0.1",
     "erlpack": "discordapp/erlpack",
     "ioredis": "^3.2.2",
-    "moment": "^2.22.1",
+    "moment": "^2.29.2",
     "pg": "^7.4.3",
     "sequelize": "^4.37.8"
   },
